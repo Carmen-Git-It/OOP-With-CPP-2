@@ -8,9 +8,29 @@
 #ifndef SDDS_CARADS_H
 #define SDDS_CARADS_H
 
+#include <iostream>
+
 extern double g_taxrate, g_discount;
 namespace sdds {
 void listArgs(int argc, char *argv[]);
-}
+
+class Cars {
+  char m_brand[11]{};
+  char m_model[16]{};
+  int m_year{};
+  double m_price{};
+  char m_status{}; // N for new or U for used
+  bool m_discounted{};
+
+public:
+  Cars();
+  // Data read in format:
+  // <Order Tag>,<Car Brand>,<CarModel>,<Year>,<Price>,<Discount status>
+  void read(std::istream &is);
+  // If no brand is stored, prints nothing, otherwise displays car data.
+  void display(bool reset) const;
+  char getStatus() const;
+};
+} // namespace sdds
 
 #endif // SDDS_CARADS_H
