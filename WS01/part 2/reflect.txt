@@ -1,0 +1,61 @@
+Name:   Carmen Whitton
+Email:  cwhitton@myseneca.ca
+ID#:    102710217
+Date:   09/12/2022
+
+  This workshop was an excellent introduction to thinking about programs in terms of
+translation units, and working through it while keeping in mind the steps of pre-processing,
+compiling, and linking helped me further understand the actual process that is required to
+turn code into an executable binary. The distinction between internal and external linkage
+was exceptionally interesting as while I was aware of both the 'extern' and 'static'
+keywords I had never thought of them in terms of linkage before, nor had I chosen to directly
+contrast them. In the workshop, internal linkage was the solution to the problem of keeping
+track of how many times a function had been called, like so:
+  static int counter = 0;
+  if (reset) {
+    counter = 0;
+  }
+  counter++;
+Due to the internal linkage of the static keyword, the value in memory of the variable 'counter'
+was maintained despite leaving the block that it was declared in, as it was visible and therefore
+present throughout the lifetime of the entire carads translation unit. A file-scope variable could have been used
+for its internal linkage rather than a static variable, but the workshop specified that a
+file-scope variable should not be used in the solution, leaving only static as a solution.
+  In contrast to this, external linkage via the 'extern' keyword was the solution to the
+need to have one translation unit impact a variable used in another translation unit. In this
+case we needed to have the main translation unit be able to change the tax rate and discount rate
+used in the carads translation unit, which was solved like so:
+In the carads header file:
+  extern double g_taxrate, g_discount;
+and in the carads source file:
+  double g_discount = 0;
+  double g_taxrate = 0;
+This was possible because the variables are available in scopes outside of their own translation
+unit.
+  Despite several new ideas being introduced, this workshop was mainly useful for refreshing on
+OOP244 before getting into OOP345 in earnest, as I took the summer semester off and it took me
+more time than I would otherwise like to complete this workshop.
+  Upgrading the Cars class to accept a brand of any size was actually where my memory kicked
+back in because the rule of 3 was drilled in so well during OOP244. The first step was to switch
+from a statically allocated char array to a char pointer that could later be dynamically allocated.
+from:
+    char m_brand[11]{};
+to:
+    char *m_brand{};
+From there, I implemented the rule of 3 to avoid memory leaks and segmentation faults due to poor
+memory safety. Simple enough: a destructor, a copy contructor, and an assignment operator were added:
+  ~Cars();
+  Cars(const Cars &);
+  Cars &operator=(const Cars &);
+Finally the read function was changed to use a string to temporarily hold the text read in from
+the istream using the std::getline function rather than istream.get function that I was using
+before. This is because the std::getline function stores the result in a string instead of an array
+of chars. Then the brand member variable is deallocated (to avoid a leak) and reallocated to the
+length of the temporary string, then the data is copied via strcpy from the string.cstr() result
+to the brand member variable.
+  For the sake of completion, even though I mentioned static variables before I should clarify
+exactly what's going on with them. Static variables are initialized in the scope of the translation
+unit that contains it the first time its block is run. From that point on, the variable persists
+in memory in the translation unit for the rest of the lifetime of the program. This is useful for
+the persistence of data without exposing it to other translation unit, or using dynamic memory when
+neither of those solutions make sense.
