@@ -24,6 +24,7 @@ class Cars {
 
 public:
   Cars();
+  // Rule of 3
   ~Cars();
   Cars(const Cars &);
   Cars &operator=(const Cars &);
