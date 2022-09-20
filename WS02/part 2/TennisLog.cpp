@@ -15,7 +15,7 @@ namespace sdds {
 /*** Tennis Match ***/
 
 TennisMatch::operator bool() const {
-   return m_matchId != 0 && m_tournamentId.length() != 0;
+   return m_matchId > 0 && m_tournamentId.length() > 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const TennisMatch& match) {
@@ -80,11 +80,12 @@ TennisLog& TennisLog::operator=(const TennisLog& log) {
 
 // Move assignment
 TennisLog& TennisLog::operator=(TennisLog&& log) {
-   if (this != &log) {
+   if (this != &log && log.m_numMatches > 0) {
       m_numMatches = log.m_numMatches;
       delete[] m_matches;
-      m_matches     = log.m_matches;
-      log.m_matches = nullptr;
+      m_matches        = log.m_matches;
+      log.m_matches    = nullptr;
+      log.m_numMatches = 0;
    }
    return *this;
 }

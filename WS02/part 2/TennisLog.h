@@ -44,8 +44,8 @@ class TennisLog
    TennisLog findMatches(const char* playerName);
    const TennisMatch operator[](size_t) const;
    operator size_t() const;
-   TennisLog& operator=(const TennisLog&);  // Copy assignment
-   TennisLog& operator=(const TennisLog&&); // Move assignment
+   TennisLog& operator=(const TennisLog&); // Copy assignment
+   TennisLog& operator=(TennisLog&&);      // Move assignment
 };
 
 } // namespace sdds
