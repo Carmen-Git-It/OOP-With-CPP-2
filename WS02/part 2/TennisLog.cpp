@@ -14,10 +14,13 @@ namespace sdds {
 
 /*** Tennis Match ***/
 
+// Returns true if the log is not in a safe empty state
+// Returns false otherwise
 TennisMatch::operator bool() const {
    return m_matchId > 0 && m_tournamentId.length() > 0;
 }
 
+// Displays formatted data from a match object into an ostream
 std::ostream& operator<<(std::ostream& os, const TennisMatch& match) {
    if (!match) {
       os << "Empty Match";
@@ -51,8 +54,8 @@ std::ostream& operator<<(std::ostream& os, const TennisMatch& match) {
 
 /*** Tennis Log ***/
 
+// Constructor
 TennisLog::TennisLog() {
-   m_matches = nullptr;
    // Empty constructor, all values are initialized to safe empty values;
 }
 
@@ -67,10 +70,12 @@ TennisLog::TennisLog(const TennisLog&& log) { *this = std::move(log); }
 
 // Copy assignment operator
 TennisLog& TennisLog::operator=(const TennisLog& log) {
+   // Double check that the address isn't the same
    if (this != &log) {
       delete[] m_matches;
       m_numMatches = log.m_numMatches;
       m_matches    = new TennisMatch[m_numMatches];
+      // Allocate and copy values over
       for (size_t i = 0; i < m_numMatches; i++) {
          m_matches[i] = log.m_matches[i];
       }
@@ -80,9 +85,11 @@ TennisLog& TennisLog::operator=(const TennisLog& log) {
 
 // Move assignment
 TennisLog& TennisLog::operator=(TennisLog&& log) {
+   // Double check that the address isn't the same
    if (this != &log && log.m_numMatches > 0) {
       m_numMatches = log.m_numMatches;
       delete[] m_matches;
+      // Move the heap memory address over to this object's m_matches pointer
       m_matches        = log.m_matches;
       log.m_matches    = nullptr;
       log.m_numMatches = 0;
@@ -171,6 +178,7 @@ TennisLog TennisLog::findMatches(const char* playerName) {
    return log;
 }
 
+// Returns an element from the m_matches array
 const TennisMatch TennisLog::operator[](size_t index) const {
    TennisMatch match;
    if (index < m_numMatches) {
@@ -179,6 +187,7 @@ const TennisMatch TennisLog::operator[](size_t index) const {
    return match;
 }
 
+// Returns the current number of matches
 TennisLog::operator size_t() const { return m_numMatches; }
 
 } // namespace sdds
