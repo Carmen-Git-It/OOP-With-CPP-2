@@ -3,7 +3,7 @@
 // Name:   Carmen Whitton
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
-// Date:   09/11/2022 (Happy birthday to me!)
+// Date:   09/19/2022 (Happy birthday to me!)
 
 #include "TennisLog.h"
 #include <cstring>
@@ -79,7 +79,15 @@ TennisLog& TennisLog::operator=(const TennisLog& log) {
 }
 
 // Move assignment
-TennisLog& TennisLog::operator=(const TennisLog&& log) { return *this; }
+TennisLog& TennisLog::operator=(TennisLog&& log) {
+   if (this != &log) {
+      m_numMatches = log.m_numMatches;
+      delete[] m_matches;
+      m_matches     = log.m_matches;
+      log.m_matches = nullptr;
+   }
+   return *this;
+}
 
 // Accepts a .csv file as a source of initial match data
 TennisLog::TennisLog(const char* filename) {
