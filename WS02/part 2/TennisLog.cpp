@@ -3,7 +3,7 @@
 // Name:   Carmen Whitton
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
-// Date:   09/19/2022 (Happy birthday to me!)
+// Date:   09/19/2022
 
 #include "TennisLog.h"
 #include <cstring>
@@ -27,23 +27,23 @@ std::ostream& operator<<(std::ostream& os, const TennisMatch& match) {
    }
    else {
       os.fill('.');
-      os.width(20);
+      os.width(23);
       os << std::right << "Tourney ID : ";
       os.width(30);
       os << std::left << match.m_tournamentId << std::endl;
-      os.width(20);
+      os.width(23);
       os << std::right << "Match ID : ";
       os.width(30);
       os << std::left << match.m_matchId << std::endl;
-      os.width(20);
+      os.width(23);
       os << std::right << "Tourney : ";
       os.width(30);
       os << std::left << match.m_tournamentName << std::endl;
-      os.width(20);
+      os.width(23);
       os << std::right << "Winner : ";
       os.width(30);
       os << std::left << match.m_winner << std::endl;
-      os.width(20);
+      os.width(23);
       os << std::right << "Loser : ";
       os.width(30);
       os << std::left << match.m_loser << std::endl;
@@ -66,7 +66,7 @@ TennisLog::~TennisLog() { delete[] m_matches; }
 TennisLog::TennisLog(const TennisLog& log) { *this = log; }
 
 // Move constructor
-TennisLog::TennisLog(const TennisLog&& log) { *this = std::move(log); }
+TennisLog::TennisLog(TennisLog&& log) { *this = std::move(log); }
 
 // Copy assignment operator
 TennisLog& TennisLog::operator=(const TennisLog& log) {

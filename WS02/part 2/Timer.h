@@ -3,7 +3,7 @@
 // Name:   Carmen Whitton
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
-// Date:   09/19/2022 (Happy birthday to me!)
+// Date:   09/19/2022
 
 #ifndef SDDS_TIMER_H
 #define SDDS_TIMER_H

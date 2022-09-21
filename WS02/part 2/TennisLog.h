@@ -3,7 +3,7 @@
 // Name:   Carmen Whitton
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
-// Date:   09/19/2022 (Happy birthday to me!)
+// Date:   09/19/2022
 
 #ifndef SDDS_TENNISLOG_H
 #define SDDS_TENNISLOG_H
@@ -37,8 +37,8 @@ class TennisLog
  public:
    TennisLog();
    ~TennisLog();
-   TennisLog(const TennisLog&);  // Copy constructor
-   TennisLog(const TennisLog&&); // Move constructor
+   TennisLog(const TennisLog&); // Copy constructor
+   TennisLog(TennisLog&&);      // Move constructor
    TennisLog(const char* filename);
    void addMatch(const TennisMatch&);
    TennisLog findMatches(const char* playerName);
