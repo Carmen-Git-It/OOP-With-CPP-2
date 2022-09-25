@@ -37,15 +37,13 @@ class TennisLog
  public:
    TennisLog();
    ~TennisLog();
-   TennisLog(const TennisLog&);  // Copy constructor
-   TennisLog(const TennisLog&&); // Move constructor
+   TennisLog(const TennisLog&); // Copy constructor
    TennisLog(const char* filename);
    void addMatch(const TennisMatch&);
    TennisLog findMatches(const char* playerName);
    const TennisMatch operator[](size_t) const;
    operator size_t() const;
-   TennisLog& operator=(const TennisLog&);  // Copy assignment
-   TennisLog& operator=(const TennisLog&&); // Move assignment
+   TennisLog& operator=(const TennisLog&); // Copy assignment
 };
 
 } // namespace sdds

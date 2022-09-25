@@ -59,28 +59,6 @@ TennisLog::TennisLog() {
 // Delete class resources to avoid memory leaks
 TennisLog::~TennisLog() { delete[] m_matches; }
 
-// Copy constructor
-TennisLog::TennisLog(const TennisLog& log) { *this = log; }
-
-// Move constructor
-TennisLog::TennisLog(const TennisLog&& log) { *this = std::move(log); }
-
-// Copy assignment operator
-TennisLog& TennisLog::operator=(const TennisLog& log) {
-   if (this != &log) {
-      delete[] m_matches;
-      m_numMatches = log.m_numMatches;
-      m_matches    = new TennisMatch[m_numMatches];
-      for (size_t i = 0; i < m_numMatches; i++) {
-         m_matches[i] = log.m_matches[i];
-      }
-   }
-   return *this;
-}
-
-// Move assignment
-TennisLog& TennisLog::operator=(const TennisLog&& log) { return *this; }
-
 // Accepts a .csv file as a source of initial match data
 TennisLog::TennisLog(const char* filename) {
    std::string buffer; // buffer for file reading

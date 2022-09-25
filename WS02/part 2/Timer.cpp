@@ -10,12 +10,12 @@
 namespace sdds {
 
 // Take current time and store it in a member variable
-void Timer::start() { m_start = std::chrono::system_clock::now(); }
+void Timer::start() { m_start = std::chrono::steady_clock::now(); }
 
 // Take difference between current time and start time
 // Returns duration in nanoseconds
 long long Timer::stop() {
-   auto end = std::chrono::system_clock::now();
+   auto end = std::chrono::steady_clock::now();
    auto duration =
        std::chrono::duration_cast<std::chrono::nanoseconds>(end - m_start);
    return duration.count();

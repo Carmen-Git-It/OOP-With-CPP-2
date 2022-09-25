@@ -1,0 +1,68 @@
+Name:   Carmen Whitton
+Email:  cwhitton@myseneca.ca
+ID#:    102710217
+Date:   09/24/2022
+
+The first part of this workshop was mainly a review of OOP244 file reading, but with
+the nice benefit of being able to read directly into strings using the
+std::getline() function. Overall though there wasn't anything new in part 1.
+Part 2 on the otherhand was mostly new concepts, copy assignment / constructor not
+withstanding. The move constructor / move assignment methods were far and away the
+most useful thing that I learned while working on this lab. The differences in
+benchmark times between moving class resources and copying them was night and day.
+Moving works in constant time while copying scales with the amount of data being
+used. Though I wouldn't be able to see the differences in performace without learning
+how to use the C++ time library. Reading documentation isn't anything new for me,
+but the C++ documentation never fails to be dense and difficult to parse. That
+being said, thankfully it only took about 10 minutes of reading and a little bit
+of experimentation in a vacuum using a test project to figure out the correct way
+to return a long long nanosecond representation of time duration from the start
+to the end of execution. It was definitely good to learn how to access the C++
+library documentation for possible future projects where they could come in handy.
+I know that bigint libraries have been useful in past rather than writing my own
+class to handle arithmetic operations between two large integer numbers.
+Interestingly enough, I kinda figured out that requesting heap memory from the OS
+is far from a free operation because of this lab. A peer was (until he realized it
+was a poor implementation) allocating more memory line by line throughout his
+single-argument constructor, and it took much, much longer to create the tlogs.
+Not my story, but I did learn something and it was technically because of this lab.
+
+Anyway, onto answering the reflection prompts. The reason for the significant time
+difference between copy and move operations is because the copy operation simply
+has far more internal operations than the move operation. That was far too many
+instances of the word operation, but that really is the primary reason. The copy
+operation has more internal operations due to the required allocation of new
+memory and manual copying of data via a loop O(n). Meanwhile the move operation
+is a simple 2-step affair due to the simple copying of the address of the heap
+memory that stores the array rather than copying all of the data stores withing
+the array. This operation is done in constant time O(C) as it doesn't change no
+matter how much data is being moved.
+
+My approach to reading the input file in the single-argument constructor for
+TennisLog was to loop through the file once, track the number of lines, then
+allocate memory for that many matches, and read through the file again while storing
+that memory. This was the way that was instructed. I can imagine two ways to avoid
+reading through the file again (though there may of course be more). The first way
+would involve dynamically re-allocating the array of TennisMatch for each new line
+read, which is expensive operationally and eats up a lot of runtime unnecessarily.
+Of course, you could make this less impactful on runtime by allocating in chunks of
+memory (4 matches at a time) instead of just one at a time.
+The second way would be to attempt to store all of the data being read in a
+massive buffer, then simply going through the buffer to access the data without
+having to read through the file a second time. The issues with this second method
+are a) it's very memory-hungry, and b) the buffer may not be big enough no matter
+what you do, resulting in a failed attempt at reading.
+
+This is somewhat embarrassing, but I actually did use a system clock for all of
+my Timer data types and Chrono library calls. I didn't realize until it was mentioned
+in this reflection question that I was meant to use a steady clock. I just changed
+the code! It still works just fine. From what I understand, the difference between
+a steady clock and a system clock is that the system clock has the amount of time
+since epoch, or the actual current time, and can be altered by any sufficiently
+priveleged user or software. Steady clocks on the other hand may not be adjusted,
+either forward or backward, but simply move forward at a constant pace in-line with
+real time. This makes steady clocks far better for benchmarking, as it can't be
+messed with by other users on the OS. I would use the system clock is I needed an
+accurate in-the-moment value of the current time according to the OS, like if my
+app displayed a timestamp when a message is created. I would use steady clocks when
+I need to know the time difference between two measured points.
