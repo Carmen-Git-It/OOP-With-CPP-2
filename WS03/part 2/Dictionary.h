@@ -22,6 +22,7 @@ class Dictionary
    Dictionary(const std::string& term, const std::string& definition)
        : m_term{term}, m_definition{definition} {}
    friend std::ostream& operator<<(std::ostream& os, const Dictionary&);
+   bool operator==(const Dictionary&) const;
 
    // TODO: Code the missing prototype functions and operators
    //       that the class needs in order to work with the Queue class.

@@ -16,4 +16,10 @@ std::ostream& operator<<(std::ostream& os, const Dictionary& dic) {
 
    return os;
 }
+
+bool Dictionary::operator==(const Dictionary& dic) const {
+   return m_term.compare(dic.m_term) == 0 &&
+          m_definition.compare(dic.m_definition) == 0;
+}
+
 } // namespace sdds

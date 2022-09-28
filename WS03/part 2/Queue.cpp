@@ -7,8 +7,4 @@
 
 #include "Queue.h"
 
-namespace sdds {
-template <>
-const Dictionary Queue<Dictionary, 100u>::m_default =
-    Dictionary{"Empty Term", "Empty Substitute"};
-}
+namespace sdds {}

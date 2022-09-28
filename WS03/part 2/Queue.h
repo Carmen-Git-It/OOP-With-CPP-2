@@ -19,10 +19,11 @@ template <typename T, std::size_t CAPACITY> class Queue
    std::size_t m_numItems{};
 
  public:
-   Queue(){};
+   Queue() {}
+   virtual ~Queue() {}
    // Adds new item to queue, returns true if
    // successful, false otherwise
-   bool push(const T& item) {
+   virtual bool push(const T& item) {
       bool isSuccess = false;
       if (m_numItems < CAPACITY) {
          m_items[m_numItems] = item;
@@ -73,9 +74,9 @@ template <typename T, std::size_t CAPACITY> class Queue
 
 template <typename T, std::size_t CAPACITY>
 const T Queue<T, CAPACITY>::m_default = T{};
+template <>
+inline const Dictionary Queue<Dictionary, 100u>::m_default =
+    Dictionary{"Empty Term", "Empty Substitute"};
 
-// template <>
-// const Dictionary Queue<Dictionary, 100u>::m_default =
-//     Dictionary{"Empty Term", "Empty Substitute"};
 } // namespace sdds
 #endif // SDDS_QUEUE_H
