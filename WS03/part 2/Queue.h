@@ -45,17 +45,20 @@ template <typename T, std::size_t CAPACITY> class Queue
       else {
          temp = m_default;
       }
-
+      m_numItems--;
       return temp;
    }
    // Returns the number of elements in the queue
    size_t size() const { return m_numItems; };
    // Formatted output to provided ostream
    std::ostream& display(std::ostream& os = std::cout) const {
+      os << "----------------------\n"
+         << "| Dictionary Content |\n"
+         << "----------------------\n";
       for (std::size_t i = 0; i < m_numItems; i++) {
-         // TODO finish formatting
          os << m_items[i] << std::endl;
       }
+      os << "----------------------\n";
       return os;
    };
    // Returns either a copy of the index

@@ -12,6 +12,9 @@ template <> bool UniqueQueue<double>::push(const double& item) {
    bool unique    = true;
    bool isSuccess = false;
    for (std::size_t i = 0; i < Queue<double, 100u>::size(); i++) {
+      // std::cout << "TESTING: " << Queue<double, 100u>::operator[](i) << " vs.
+      // "
+      // << item << std::endl;
       if (std::fabs(item) <=
               std::fabs(Queue<double, 100u>::operator[](i)) + 0.005 &&
           std::fabs(item) >=

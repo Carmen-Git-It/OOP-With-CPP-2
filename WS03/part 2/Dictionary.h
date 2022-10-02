@@ -23,10 +23,6 @@ class Dictionary
        : m_term{term}, m_definition{definition} {}
    friend std::ostream& operator<<(std::ostream& os, const Dictionary&);
    bool operator==(const Dictionary&) const;
-
-   // TODO: Code the missing prototype functions and operators
-   //       that the class needs in order to work with the Queue class.
-   //       Implement them in the Dictionary.cpp file.
 };
 } // namespace sdds
 #endif // SDDS_DICTIONARY_H

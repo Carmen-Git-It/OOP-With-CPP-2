@@ -8,6 +8,8 @@
 #ifndef SDDS_UNIQUEQUEUE_H
 #define SDDS_UNIQUEQUEUE_H
 #include "Queue.h"
+#include <cmath>
+
 namespace sdds {
 template <typename T> class UniqueQueue : public Queue<T, 100u>
 {
@@ -27,5 +29,23 @@ template <typename T> class UniqueQueue : public Queue<T, 100u>
       return isSuccess;
    };
 };
+
+template <> inline bool UniqueQueue<double>::push(const double& item) {
+   bool unique    = true;
+   bool isSuccess = false;
+   for (std::size_t i = 0; i < Queue<double, 100u>::size(); i++) {
+      if (std::fabs(item) <=
+              std::fabs(Queue<double, 100u>::operator[](i)) + 0.005 &&
+          std::fabs(item) >=
+              std::fabs(Queue<double, 100u>::operator[](i)) - 0.005) {
+         unique = false;
+      }
+   }
+   if (unique) {
+      isSuccess = Queue<double, 100u>::push(item);
+   }
+   return isSuccess;
+}
+
 } // namespace sdds
 #endif //! SDDS_UNIQUEQUEUE_H
