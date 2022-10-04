@@ -4,3 +4,7 @@
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
 // Date:   10/03/2022
+
+#include "ConfirmationSender.h"
+
+namespace sdds {}

@@ -4,3 +4,8 @@
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
 // Date:   10/03/2022
+
+#ifndef SDDS_CONFIRMATIONSENDER_H
+#define SDDS_CONFIRMATIONSENDER_H
+
+#endif //! SDDS_CONFIRMATIONSENDER_H
