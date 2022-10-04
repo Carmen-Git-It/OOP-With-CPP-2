@@ -60,6 +60,7 @@ Restaurant& Restaurant::operator=(Restaurant&& restaurant) {
       m_count                   = restaurant.m_count;
       m_reservations            = restaurant.m_reservations;
       restaurant.m_reservations = nullptr;
+      restaurant.m_count        = 0;
    }
    return *this;
 }
@@ -72,15 +73,15 @@ size_t Restaurant::size() const { return m_count; }
 std::ostream& operator<<(std::ostream& os, const Restaurant& restaurant) {
    static unsigned called = 0;
    called++;
-   os << "--------------------------\nFancy Restaurant " << called
-      << "\n--------------------------\n";
+   os << "--------------------------\nFancy Restaurant (" << called
+      << ")\n--------------------------\n";
    if (restaurant.m_count > 0) {
       for (size_t i = 0; i < restaurant.m_count; i++) {
          os << *restaurant.m_reservations[i];
       }
    }
    else {
-      os << "This restaurant is empty!";
+      os << "This restaurant is empty!\n";
    }
 
    os << "--------------------------\n";

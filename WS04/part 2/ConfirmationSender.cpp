@@ -47,6 +47,7 @@ ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& cs) {
       m_count           = cs.m_count;
       m_reservations    = cs.m_reservations;
       cs.m_reservations = nullptr;
+      cs.m_count        = 0;
    }
    return *this;
 }
@@ -85,15 +86,15 @@ ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res) {
          exists = true;
       }
    }
-   // if it does, shuffle the addresses down the array, then move them into the
    // resized array.
    if (exists) {
       const Reservation** temp = new const Reservation*[m_count - 1];
       i--;
+      --m_count;
       for (size_t j = i; j < m_count; j++) {
          m_reservations[j] = m_reservations[j + 1];
       }
-      for (size_t j = 0; j < --m_count; j++) {
+      for (size_t j = 0; j < m_count; j++) {
          temp[j] = m_reservations[j];
       }
       delete[] m_reservations;
@@ -109,7 +110,7 @@ std::ostream& operator<<(std::ostream& os, const ConfirmationSender& cs) {
          "Send\n--------------------------\n";
    if (cs.m_count > 0) {
       for (size_t i = 0; i < cs.m_count; i++) {
-         os << cs.m_reservations[i];
+         os << *cs.m_reservations[i];
       }
    }
    else {
