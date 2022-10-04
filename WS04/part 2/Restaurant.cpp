@@ -76,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const Restaurant& restaurant) {
       << "\n--------------------------\n";
    if (restaurant.m_count > 0) {
       for (size_t i = 0; i < restaurant.m_count; i++) {
-         os << *restaurant.m_reservations[i] << "\n";
+         os << *restaurant.m_reservations[i];
       }
    }
    else {

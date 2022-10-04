@@ -12,8 +12,8 @@
 namespace sdds {
 class Restaurant
 {
-   size_t m_count;
-   Reservation** m_reservations;
+   size_t m_count{};
+   Reservation** m_reservations{};
    void deallocate();
 
  public:
