@@ -1,0 +1,67 @@
+Name:   Carmen Whitton
+Email:  cwhitton@myseneca.ca
+ID#:    102710217
+Date:   10/03/2022
+
+It would be nice to be able to just go on a tangent about what I learned in this reflection,
+but with the inline reflection prompts in this workshop and the last I have to make sure to
+address them early or risk forgetting them entirely. The types that I used for the Reservation
+class were chosen carefully, and I believe that I have good enough reasons for choosing each.
+Id was make to be a statically allocated character array of size 10, due to the format of the
+reservation id being at most 10 characters (at least from what I understood of the documentation).
+Name and email were both chosent to be strings as both names and emails are notoriously difficult
+to predict the size of, and I would rather not mess with constant dynamic reallocation while
+simply reading in some values from a file. Strings were the easier, better fit for the needs.
+Guest count was made an unsigned integer due to the impossibility of a negative number of
+guests, and an uncertain maximum number of guests. Day and hour were both made unsigned chars
+due to their tiny, and purely positive value range (1-28 for example). Unsigned char is simply
+the smallest possible unsigned integral type available (at least as far as I am aware). It
+required some messing with the insertion operator overload to get them to display properly,
+which is odd honestly I didn't expect that, but ultimately a simple cast to int was all they
+needed to print correctly.
+
+Now that that's out of the way! In this workshop we primarily learned about and applied the
+various forms of relationship between objects, namely composition, aggregation, and association.
+The relationship between the restaurant class and the reservation class is textbook composition 
+by virtue of the restaurant managing both the memory and the lifetime of the reservation class.
+Initially the pick of an array of pointers made me think that Restaurant was going to have an
+aggregation relationship with Reservation, but that was a fakeout. Because of this it threw
+me for a loop when I read in the instructions that Restaurant would store copies of Reservation,
+and I honestly stopped there in the instructions for a few minutes to re-read the notes again.
+Quickly resolved though, thankfully!
+
+One issue I ran into actually (and keep running into!!) is that I keep forgetting to set the
+count / size member of the moved object to zero in the move assignment operator! I can't believe
+it but this is the second workshop in a row where that threw me for a loop. I had no issues
+implementing resizing on the -= operator for the ConfirmationSender class, but it took me 5
+minutes to figure out why I kept getting segmentation faults. Go figure. 
+
+The ConfirmationSender (now called CS because I'm not typing that a thousand times) is a
+perfect example of aggregation in its relationship with Reservation. It does not manage the
+lifetime or the memory of the Reservation class, unlike Restaurant. CS does still contain
+Reservations though, which makes it closer to a composition relationship than an association.
+Therefore it's an aggregation! I somehow faced no real issues when implementing the
+ConfirmationSender class, except for when I made a very silly mistake and decremented the
+m_count member inside the conditional section of the while loop because --m_count looked fancy
+compared to the decrementation sitting out on its own. Unfortunately I failed to account for
+the comparison running every single loop, and was then quickly missing most of my reservations
+after the -= operator was used.
+
+No associations were used in this lab as far as I'm aware, which is sad because they would have
+been neat to explore as well. Oh well. An association is interesting because it is non-hierarchal
+in a way that composition and aggregation are not, where both objects exist independently and
+operate no less efficiently without than with the other. I do hope we get to use them in one
+of these workshops.
+
+Back to answering the prescribed questions like a robot. The copy assignment operator for a
+compositional relationship involves deallocating the pre-existing class resources, then
+allocating a new resource followed by a copy-by-value from one object to the other. In the
+case of an aggregation relationship however the copy assignment only deallocates and
+reallocates pointers, then copies the address of the memory stored in the other object. This
+is done to avoid responsibility for managing the lifetime of the objects in question.
+The move assignment operator for a compositional relationship deallocates the existing class
+resources, then copies the address of the data from the rvalue to the lvalue. In the case of
+Restaurant that involved reallocating memory for the array of pointers, but there is no
+copying by value. In an aggregation relationship however, (for instance in CS) you deallocate
+the class resources, then simply copy the address of all of the class resource memory of the
+rvalue object.

@@ -45,7 +45,7 @@ template <typename T, std::size_t CAPACITY> class Queue
       else {
          temp = m_default;
       }
-      m_numItems--;
+
       return temp;
    }
    // Returns the number of elements in the queue

@@ -1,0 +1,71 @@
+Name:   Carmen Whitton
+Email:  cwhitton@myseneca.ca
+ID#:    102710217
+Date:   10/01/2022
+
+This might end up being a bit of a long one given the amount that I number
+of individual questions that were asked to be reflected on, so I'll try to
+speed through the "what did you learn" section. In this lab we primarily
+learned about templates, which are used to code functions or classes that
+can work with multiple types (via the compiler creating multiple versions
+of the class / function as needed for the various types that will be fed into
+it during runtime). Then we learned how to specialize aspects of the templates
+to allow for specific behaviour in certain unique cases using the inline
+keyword (I was originally going to place the specializations in the .cpp files
+but we were not allowed to do that, so inline it is). Then we learned how to
+use polymorphism and inheritance in conjunction with templates by deriving
+from a template class. Particularly interesting was having a different number
+of template values in the subclass.
+
+Issues that I ran into included figuring out that I needed to use the inline
+keyword to resolve ODR errors despite the fact that inline was never mentioned
+in the notes. It just took googling. My intuitive solution was to move the
+template specializations into the .cpp files (which does work), but we
+were not allowed to use .cpp files, so inline was the only possible solution
+to the problem. Another issue that I ran into is actually related to the first
+issue, and it's that when I was attempting to test my code on matrix for
+feedback, the submitter excluded the .cpp files so my specialization for
+the UniqueQueue<double>::push() wasn't being compiled, and so my code mostly
+worked except for the UniqueQueue in the case of doubles. Overall though not
+too many headaches in this workshop, just a couple particularly annoying ones.
+
+Alright, onto the inline prompts: 
+For the dictionary class, it was necessary
+to add a default constructor to enable the ability to instantiate an instance
+of a Dictionary without parameters, which was primarily useful when setting up
+the dummy object in the Queue using {} notation. Adding a display / instertion
+'<<' operator was necessary to allow for displaying a Dictionary item in the
+display function of the Queue. A comparison operator '==' was necessary to
+enable the Dictionary class to work with the UniqueQueue class, as to check
+whether or not a duplicate of type T already exists in the UniqueQueue you
+need to be able to compare equality between types.
+
+We do not split either the Queue or UniqueQueue modules into .cpp and .h
+files in this case because we are dealing with templates, and if you don't
+want your life to get very difficult very quickly, you define your functions
+inside of the class definition rather than externally in a source file.
+This is because a template is not actually code that gets directly compiled,
+but is first pre-processed into numerous versions of the same class or
+function based on the types needed. Because of this, placing the definitions
+in the .cpp files wouldn't allow many of the expanded functions to be seen
+by other translation units, unlike if they were in the header. It's also
+just not really something that cpp allows you to do, though there are ways
+to do it they all seem like a real pain from what I've read. That being
+said, specializations can go into the .cpp file because those are not
+expanded.
+
+The push function was specialized due to the issues with measuring equality
+between floating point values. Harkening all the way back to the days of the
+IPC change-calculator workshop where we learned the dangers of floating point
+arithmetic. Good times. Any way, floating point numbers are weird and you
+can end up with two floating point numbers that are for all intents and
+purposes equal, but are not equal in terms of their bitstring. It's up to
+us to decide a level of accuracy when it comes to measuring equality between
+floating point numbers. For that matter we should ideally have also specialized
+for floats, but they weren't used in this workshop.
+
+The class variable (const static T) needed to be defined outside of the class
+because you can't define static (class) variables inside of a class definition
+unless it is an integral type. The fact that we're using a template, and so
+the type T could be anything integral or not means that we need to assume that
+it is not integral and create an out-of-class definition for it.
