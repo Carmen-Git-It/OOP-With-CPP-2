@@ -18,6 +18,9 @@ namespace sdds {
       size_t m_year{};
       double m_price{};
       std::string m_description{};
+      template <typename T> void fixSpelling(T& spellChecker) {
+         spellChecker(m_description);
+      }
 
     public:
       Book();
