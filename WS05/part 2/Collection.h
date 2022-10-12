@@ -4,3 +4,14 @@
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
 // Date:   10/11/2022
+
+#ifndef SDDS_COLLECTION_H
+#define SDDS_COLLECTION_H
+
+namespace sdds {
+   class Collection
+   {
+   };
+} // namespace sdds
+
+#endif // SDDS_COLLECTION_H
