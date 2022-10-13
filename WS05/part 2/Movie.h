@@ -3,4 +3,29 @@
 // Name:   Carmen Whitton
 // Email:  cwhitton@myseneca.ca
 // ID#:    102710217
-// Date:   10/11/2022
+// Date:   10/12/2022
+
+#ifndef SDDS_MOVIE_H
+#define SDDS_MOVIE_H
+
+#include <string>
+
+namespace sdds {
+   class Movie
+   {
+      std::string m_title{};
+      size_t m_year{};
+      std::string m_description{};
+
+    public:
+      Movie();
+      Movie(const std::string& strMovie);
+      const std::string& title() const;
+      template <typename T> void fixSpelling(T& spellChecker) {
+         spellChecker(m_description);
+         spellChecker(m_title);
+      }
+   };
+} // namespace sdds
+
+#endif //! SDDS_MOVIE_H
