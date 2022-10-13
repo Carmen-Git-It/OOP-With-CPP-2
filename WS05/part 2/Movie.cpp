@@ -6,6 +6,7 @@
 // Date:   10/12/2022
 
 #include "Movie.h"
+#include <iostream>
 
 namespace sdds {
 
@@ -54,4 +55,11 @@ namespace sdds {
    // Returns a constant reference to the title of the movie
    const std::string& Movie::title() const { return m_title; }
 
+   // Insertion operator overload
+   std::ostream& operator<<(std::ostream& os, const Movie& movie) {
+      os.width(40);
+      os << movie.m_title << " | ";
+      os.width(4);
+      os << movie.m_year << " | " << movie.m_description << std::endl;
+   }
 } // namespace sdds

@@ -25,6 +25,7 @@ namespace sdds {
          spellChecker(m_description);
          spellChecker(m_title);
       }
+      friend std::ostream& operator<<(std::ostream& os, const Movie& movie);
    };
 } // namespace sdds
 
