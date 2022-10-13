@@ -18,9 +18,7 @@ namespace sdds {
       size_t m_year{};
       double m_price{};
       std::string m_description{};
-      template <typename T> void fixSpelling(T& spellChecker) {
-         spellChecker(m_description);
-      }
+      std::string& trim(std::string& str);
 
     public:
       Book();
@@ -30,6 +28,9 @@ namespace sdds {
       const size_t& year() const;
       double& price();
       friend std::ostream& operator<<(std::ostream&, const Book&);
+      template <typename T> void fixSpelling(T& spellChecker) {
+         spellChecker(m_description);
+      }
    };
 
 } // namespace sdds

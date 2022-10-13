@@ -12,7 +12,7 @@ namespace sdds {
 
    // I would love to pop this into a utility class but there's no option to in
    // this workshop
-   std::string& trim(std::string& str) {
+   std::string& Movie::trim(std::string& str) {
       bool trimmed = false;
 
       while (!trimmed) {
@@ -61,5 +61,6 @@ namespace sdds {
       os << movie.m_title << " | ";
       os.width(4);
       os << movie.m_year << " | " << movie.m_description << std::endl;
+      return os;
    }
 } // namespace sdds

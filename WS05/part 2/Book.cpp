@@ -10,7 +10,7 @@
 
 namespace sdds {
    // Local function used to trim whitespace from both ends of a string
-   std::string& trim(std::string& str) {
+   std::string& Book::trim(std::string& str) {
       bool trimmed = false;
 
       while (!trimmed) {
@@ -87,7 +87,9 @@ namespace sdds {
       os << book.m_year << " | ";
       os.width(6);
       os.precision(2);
-      os << std::fixed << book.m_price;
+      os << std::fixed << book.m_price << " | " << book.m_description
+         << std::endl;
+
       return os;
    }
 

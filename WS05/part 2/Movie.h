@@ -16,6 +16,7 @@ namespace sdds {
       std::string m_title{};
       size_t m_year{};
       std::string m_description{};
+      std::string& trim(std::string& str);
 
     public:
       Movie();
