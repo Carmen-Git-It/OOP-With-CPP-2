@@ -45,10 +45,6 @@ namespace sdds {
    // correct text
    void SpellChecker::operator()(std::string& text) {
       for (size_t i = 0; i < SIZE; i++) {
-         // size_t left{};
-         // size_t right      = text.find(' ');
-         // std::string token = text.substr(left, right);
-
          size_t index = text.find(m_badWords[i]);
          while (index != std::string::npos) {
             text.replace(index, m_badWords[i].length(), m_goodWords[i]);
