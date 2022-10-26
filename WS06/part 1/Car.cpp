@@ -60,9 +60,10 @@ namespace sdds {
    void Car::display(std::ostream& out) const {
       out << "| ";
       out.width(10);
-      out << m_maker << " | ";
+      out << std::right << m_maker << " | ";
       out.width(6);
-      out << (m_condition == New ? "new"
+      out << std::left
+          << (m_condition == New ? "new"
                                  : (m_condition == Used ? "used" : "broken"))
           << " | ";
       out.precision(2);

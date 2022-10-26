@@ -99,18 +99,21 @@ namespace sdds {
    void Van::display(std::ostream& out) const {
       out << "| ";
       out.width(8);
-      out << m_maker << " | ";
+      out << std::right << m_maker << " | ";
       out.width(12);
-      out << (m_type == Pickup ? "pickup"
+      out << std::left
+          << (m_type == Pickup ? "pickup"
                                : (m_type == Minibus ? "mini-bus" : "camper"))
           << " | ";
       out.width(12);
-      out << (m_purpose == Delivery
+      out << std::left
+          << (m_purpose == Delivery
                   ? "delivery"
                   : (m_purpose == Passenger ? "passenger" : "camping"))
           << " | ";
       out.width(6);
-      out << (m_condition == New ? "new"
+      out << std::left
+          << (m_condition == New ? "new"
                                  : (m_condition == Used ? "used" : "broken"))
           << " | ";
       out.precision(2);

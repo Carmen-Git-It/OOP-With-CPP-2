@@ -21,7 +21,8 @@ namespace sdds {
             trimmed = false;
             str.erase(str.begin());
          }
-         if (str.substr(str.size() - 1, 1).find(' ') != std::string::npos) {
+         if (str.size() > 0 &&
+             str.substr(str.size() - 1, 1).find(' ') != std::string::npos) {
             str.erase(str.end() - 1);
             trimmed = false;
          }

@@ -16,7 +16,7 @@ namespace sdds {
       enum Condition { New, Used, Broken };
       std::string m_maker{};
       Condition m_condition{};
-      unsigned m_topSpeed{};
+      double m_topSpeed{};
 
     public:
       Car();
