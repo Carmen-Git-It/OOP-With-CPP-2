@@ -7,6 +7,8 @@
 
 #include "Utilities.h"
 #include "Car.h"
+#include "Luxuryvan.h"
+#include "Racecar.h"
 #include "Van.h"
 #include <sstream>
 
@@ -42,6 +44,15 @@ namespace sdds {
       }
       else if (line[0] == 'v' || line[0] == 'V') {
          v = new Van(ss);
+      }
+      else if (line[0] == 'r' || line[0] == 'R') {
+         v = new Racecar(ss);
+      }
+      else if (line[0] == 'l' || line[0] == 'L') {
+         v = new LuxuryVan(ss);
+      }
+      else {
+         throw("Invalid record: Bad vehicle type!");
       }
 
       return v;

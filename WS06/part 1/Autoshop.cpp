@@ -24,4 +24,13 @@ namespace sdds {
       }
    }
 
+   // Destructor
+   Autoshop::~Autoshop() {
+      for (auto v = m_vehicles.begin(); v != m_vehicles.end(); ++v) {
+         delete *v;
+      }
+      for (auto v = m_lvehicles.begin(); v != m_lvehicles.end(); ++v) {
+         delete *v;
+      }
+   }
 } // namespace sdds

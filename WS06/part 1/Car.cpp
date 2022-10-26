@@ -31,7 +31,10 @@ namespace sdds {
       // Get vehicle condition
       std::getline(is, token, ',');
       token = trim(token);
-      if (token[0] == 'n') {
+      if (token.find_first_not_of(' ') == std::string::npos) {
+         m_condition = New;
+      }
+      else if (token[0] == 'n') {
          m_condition = New;
       }
       else if (token[0] == 'u') {
@@ -40,11 +43,15 @@ namespace sdds {
       else if (token[0] == 'b') {
          m_condition = Broken;
       }
+      else {
+         throw("Invalid condition!");
+      }
 
       // Get vehicle topspeed
       std::getline(is, token, ',');
       token      = trim(token);
       m_topSpeed = std::stod(token);
+      // Generates its own exception when a number isn't entered
    }
 
    // Return the condition of the vehicle

@@ -40,6 +40,9 @@ namespace sdds {
       else if (token[0] == 'c') {
          m_type = Camper;
       }
+      else {
+         throw("Invalid record: invalid vehicle type!");
+      }
 
       // Get the vehicle purpose
       std::getline(is, token, ',');
@@ -53,11 +56,17 @@ namespace sdds {
       else if (token[0] == 'c') {
          m_purpose = Camping;
       }
+      else {
+         throw("Invalid record: invalid vehicle purpose!");
+      }
 
       // Get vehicle condition
       std::getline(is, token, ',');
       token = trim(token);
-      if (token[0] == 'n') {
+      if (token.find_first_not_of(' ') == std::string::npos) {
+         m_condition = New;
+      }
+      else if (token[0] == 'n') {
          m_condition = New;
       }
       else if (token[0] == 'u') {
@@ -65,6 +74,9 @@ namespace sdds {
       }
       else if (token[0] == 'b') {
          m_condition = Broken;
+      }
+      else {
+         throw("Invalid record: invalid vehicle condition!");
       }
 
       // Get vehicle topspeed
