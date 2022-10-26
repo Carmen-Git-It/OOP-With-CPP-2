@@ -49,10 +49,10 @@ namespace sdds {
          v = new Racecar(ss);
       }
       else if (line[0] == 'l' || line[0] == 'L') {
-         v = new LuxuryVan(ss);
+         v = new Luxuryvan(ss);
       }
       else {
-         throw("Invalid record: Bad vehicle type!");
+         throw("Unrecognized record type []");
       }
 
       return v;

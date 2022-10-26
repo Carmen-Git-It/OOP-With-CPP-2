@@ -14,7 +14,7 @@ namespace sdds {
       std::getline(in, temp);
       temp = trim(temp);
       if (temp[0] != 'g' && temp[0] != 'e') {
-         throw("Invalid record: invalid consumption type!");
+         throw("Invalid record!");
       }
       m_consumption = temp;
    }

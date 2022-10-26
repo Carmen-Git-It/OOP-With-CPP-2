@@ -19,9 +19,6 @@ namespace sdds {
       std::string token{};
       // Check the vehicle type
       std::getline(is, token, ',');
-      if (!(token[0] == 'v' || token[0] == 'V')) {
-         throw("Error; invalid type!");
-      }
 
       // Get the vehicle maker
       std::getline(is, token, ',');
@@ -81,8 +78,13 @@ namespace sdds {
 
       // Get vehicle topspeed
       std::getline(is, token, ',');
-      token      = trim(token);
-      m_topSpeed = std::stod(token);
+      token = trim(token);
+      try {
+
+         m_topSpeed = std::stod(token);
+      } catch (...) {
+         throw("Invalid record!");
+      }
    }
 
    // Return the condition of the vehicle
