@@ -13,6 +13,7 @@
 #include <sstream>
 
 namespace sdds {
+
    // Utility function to clear whitespace
    std::string& trim(std::string& str) {
       bool trimmed = false;
@@ -37,24 +38,26 @@ namespace sdds {
       Vehicle* v{};
       std::string line{};
       std::getline(is, line);
-      std::istringstream ss(line);
-      line = trim(line);
-      if (line[0] == 'c' || line[0] == 'C') {
-         v = new Car(ss);
+      if (line.length() > 0) {
+         std::istringstream ss(line);
+         line = trim(line);
+         // std::cout << "Line is: " << line << std::endl;
+         if (line[0] == 'c' || line[0] == 'C') {
+            v = new Car(ss);
+         }
+         else if (line[0] == 'v' || line[0] == 'V') {
+            v = new Van(ss);
+         }
+         else if (line[0] == 'r' || line[0] == 'R') {
+            v = new Racecar(ss);
+         }
+         else if (line[0] == 'l' || line[0] == 'L') {
+            v = new Luxuryvan(ss);
+         }
+         else {
+            throw("Unrecognized record type [" + line.substr(0, 1) + "]");
+         }
       }
-      else if (line[0] == 'v' || line[0] == 'V') {
-         v = new Van(ss);
-      }
-      else if (line[0] == 'r' || line[0] == 'R') {
-         v = new Racecar(ss);
-      }
-      else if (line[0] == 'l' || line[0] == 'L') {
-         v = new Luxuryvan(ss);
-      }
-      else {
-         throw("Unrecognized record type []");
-      }
-
       return v;
    }
 } // namespace sdds

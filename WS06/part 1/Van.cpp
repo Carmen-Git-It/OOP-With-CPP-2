@@ -38,7 +38,7 @@ namespace sdds {
          m_type = Camper;
       }
       else {
-         throw("Invalid record: invalid vehicle type!");
+         throw("Invalid record!");
       }
 
       // Get the vehicle purpose
@@ -54,7 +54,7 @@ namespace sdds {
          m_purpose = Camping;
       }
       else {
-         throw("Invalid record: invalid vehicle purpose!");
+         throw("Invalid record!");
       }
 
       // Get vehicle condition
@@ -73,14 +73,13 @@ namespace sdds {
          m_condition = Broken;
       }
       else {
-         throw("Invalid record: invalid vehicle condition!");
+         throw("Invalid record!");
       }
 
       // Get vehicle topspeed
       std::getline(is, token, ',');
       token = trim(token);
       try {
-
          m_topSpeed = std::stod(token);
       } catch (...) {
          throw("Invalid record!");

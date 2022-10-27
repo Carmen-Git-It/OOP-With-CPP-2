@@ -26,10 +26,8 @@ void loadData(const char* filename, sdds::Autoshop& as) {
             as += aVehicle;
       } catch (const char* e) {
          std::cerr << e << std::endl;
-         if (file) {
-            std::string temp;
-            std::getline(file, temp);
-         }
+      } catch (std::string e) {
+         std::cerr << e << std::endl;
       }
    }
 }
