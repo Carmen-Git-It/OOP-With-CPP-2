@@ -6,3 +6,12 @@
 *.vcxproj.filters
 *.vcxproj.user
 .vs/*
+*.ilk
+*.log
+*.obj
+*.pdb
+*.tlog
+*.exe
+*.recipe
+*.enc
+*.idb

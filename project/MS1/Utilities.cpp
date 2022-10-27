@@ -54,20 +54,23 @@ namespace sdds {
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos,
                                        bool& more) {
       std::string token{};
-      size_t right = str.find(m_delimiter);
+      size_t right = str.find(m_delimiter, next_pos);
       if (right == next_pos) {
+         more = false;
          throw("Invalid next position!");
       }
       if (right != std::string::npos) {
          token = str.substr(next_pos, right - next_pos);
          token = trim(token);
-         next_pos = right + 1;
          more = true;
          if (m_widthField < right - next_pos) {
             m_widthField = right - next_pos;
          }
+         next_pos = right + 1;
       }
       else {
+         token = str.substr(next_pos);
+         token = trim(token);
          more = false;
       }
       return token;
