@@ -16,6 +16,7 @@ namespace sdds {
    {
       std::size_t m_widthField{1};
       static char m_delimiter;
+      std::string& trim(std::string& str);
 
     public:
       void setFieldWidth(size_t newWidth);
