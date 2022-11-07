@@ -55,7 +55,7 @@ namespace sdds {
             v = new Luxuryvan(ss);
          }
          else {
-            throw("Unrecognized record type [" + line.substr(0, 1) + "]");
+            throw("Unrecognized record type: [" + line.substr(0, 1) + "]");
          }
       }
       return v;

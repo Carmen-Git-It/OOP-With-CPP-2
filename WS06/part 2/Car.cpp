@@ -77,6 +77,6 @@ namespace sdds {
           << " | ";
       out.precision(2);
       out.width(6);
-      out << std::fixed << m_topSpeed << " |";
+      out << std::fixed << topSpeed() << " |";
    }
 } // namespace sdds
