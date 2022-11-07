@@ -7,8 +7,28 @@
 
 #ifndef SDDS_CRIMESTATISTICS_H
 #define SDDS_CRIMESTATISTICS_H
+#include <string>
+#include <vector>
 
 namespace sdds {
+
+   struct Crime {
+      std::string province{};
+      std::string district{};
+      std::string crime{};
+      unsigned numCases{};
+      unsigned year{};
+      unsigned numResolved{};
+   };
+
+   class CrimeStatistics {
+      std::vector<Crime> m_crimes;
+   public:
+      CrimeStatistics(const char* filename);
+      void display(std::ostream& out) const;
+   };
+
+   std::ostream& operator<<(std::ostream& out, const Crime& crime);
 
 }
 
