@@ -9,6 +9,7 @@
 #include <fstream>
 #include <numeric>
 #include <algorithm>
+#include <cstring>
 
 namespace sdds {
    // Utility function to clear whitespace
