@@ -22,7 +22,7 @@ namespace sdds {
 	
 	struct Salary {
 		std::string id;
-		double salary;
+		double salary{};
 		bool load(std::ifstream& f) {
 			f >> id >> salary;
 			return f.good();
@@ -71,6 +71,7 @@ namespace sdds {
 		}
 
 		~EmployeeWage() {
+			//recCount--;
 			if (Trace)
 			{
 				std::cout << "Destructor "<< std::setw(17) << "[" << m_counter << "]" << std::endl;
@@ -78,6 +79,11 @@ namespace sdds {
 		}
 
 		//TODO: add a function here to check correct salary range
+		void rangeValidator() {
+			if (m_salary > 99999 || m_salary < 0) {
+				throw("Error! Invalid salary!");
+			}
+		}
 
 		void print(std::ostream& os)const {
 			os << std::setw(15) << name << std::setw(10) << m_salary<<std::endl;
