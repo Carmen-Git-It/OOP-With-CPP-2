@@ -55,13 +55,17 @@ namespace sdds{
     void TreasureMap::enscribe(const char* filename){
         // Binary write
         if (map){
-            // TODO: Open a binary file stream to the filename and
-            //         then write the row number to the binary file 
-            //         then each of the rows of the map.
-            //       If the file cannot be open, raise an exception to
-            //         inform the client.
-
-            // END TODO
+           std::ofstream file(filename, std::ios::out | std::ios::binary);
+           if (file) {
+              file.write(reinterpret_cast<char*>(&rows), sizeof(rows));
+              file.write(reinterpret_cast<char*>(&colSize), sizeof(colSize));
+              for (std::size_t i = 0; i < rows; i++) {
+                 file.write(&(map[i][0]), map[i].size());
+              }
+           }
+           else {
+              throw("Error: Cannot open file!");
+           }
         }
         else{
             throw std::string("Treasure map is empty!");
@@ -69,17 +73,19 @@ namespace sdds{
     }
 
     void TreasureMap::recall(const char* filename){
-        // Binary read
-        // TODO: Open a binary file stream to the filename
-        //         and read from it to populate the current object.
-        //       The first 4 bytes of the file will be the number of rows
-        //         for the map followed another 4 bytes for the colSize
-        //         of each row in the map.
-        //       Afterwards is each row of the map itself.
-        //       If the file cannot be open, raise an exception to inform
-        //         the client.
-
-        // END TODO
+       std::ifstream file(filename, std::ios::in | std::ios::binary);
+       if (file) {
+          file.read(reinterpret_cast<char*>(&rows), sizeof(rows));
+          file.read(reinterpret_cast<char*>(&colSize), sizeof(colSize));
+          map = new std::string[rows];
+          for (std::size_t i = 0; i < rows; i++) {
+             map[i].resize(colSize);   // Make sure there's enough room
+             file.read(reinterpret_cast<char*>(&(map[i][0])), colSize);
+          }
+       }
+       else {
+          throw("Error: Cannot open file!");
+       }
     }
 
     void TreasureMap::clear(){
