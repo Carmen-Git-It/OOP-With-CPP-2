@@ -2,12 +2,25 @@
 // TreasureMap.cpp
 // Michael Huang
 
+// I have done all the coding by myself and only copied the code that
+// my professor provided to complete my workshops and assignments.
+// Name:   Carmen Whitton
+// Email:  cwhitton@myseneca.ca
+// ID#:    102710217
+// Date:   11/25/2022
+
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <functional>
+#include <future>
+#include <thread>
+#include <vector>
 #include "TreasureMap.h"
 
 namespace sdds{
+
+   const std::size_t numThreads = 4;
 
     size_t digForTreasure(const std::string& str, char mark){
         size_t cnt = 0;
@@ -96,12 +109,59 @@ namespace sdds{
     }
 
     size_t TreasureMap::findTreasure(char mark){
-        size_t count = 0;
+        std::size_t count = 0;
+
+        std::size_t thread = 0;
+        std::string strings[numThreads];
+
+        auto dig = std::bind(digForTreasure, std::placeholders::_1, mark);
+        for (size_t i = 0; i < rows; i++) {
+           if (thread == numThreads) {
+              thread = 0;
+           }
+           // Split the strings into the same number of different stacks as the number of threads
+           strings[thread] += map[i];
+           thread++;
+        }
+
+        // Attemped to solve this with a vector of packaged_task first, get_future threw exceptions though, 
+        // manual method with 4 threads it is!
+
+        std::packaged_task<std::size_t(std::string)> t1(dig);
+        std::packaged_task<std::size_t(std::string)> t2(dig);
+        std::packaged_task<std::size_t(std::string)> t3(dig);
+        std::packaged_task<std::size_t(std::string)> t4(dig);
+
+        auto f1 = t1.get_future();
+        auto f2 = t2.get_future();
+        auto f3 = t3.get_future();
+        auto f4 = t4.get_future();
+
+        t1(strings[0]);
+        t2(strings[1]);
+        t3(strings[2]);
+        t4(strings[3]);
+
+        count = f1.get() + f2.get() + f3.get() + f4.get();
+        
+
+       /* std::vector<std::packaged_task<std::size_t(std::string)>> tasks(numThreads);
+
+        for (size_t i = 0; i < numThreads; i++) {
+           tasks.push_back(std::packaged_task<std::size_t(std::string)>(dig));
+           tasks[0].get_future();
+        }
+
+        for (size_t i = 0; i < numThreads; i++) {
+           auto f = tasks[i].get_future();
+           tasks[i]((strings[i]));
+           count += f.get();
+        }*/
 
         // TODO: For part 2, comment this "for" loop and write the multihreaded version.
-        for (size_t i = 0; i < rows; ++i){
+        /*for (size_t i = 0; i < rows; ++i){
             count += digForTreasure(map[i], mark);
-        }
+        }*/
 
         return count;
     }
