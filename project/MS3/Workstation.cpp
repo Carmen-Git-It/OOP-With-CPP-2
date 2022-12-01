@@ -9,14 +9,19 @@
 #include "Workstation.h"
 
 namespace sdds {
+   // Define the three global variables
+   std::deque<CustomerOrder> g_pending = std::deque<CustomerOrder>{};
+   std::deque<CustomerOrder> g_completed = std::deque<CustomerOrder>{};
+   std::deque<CustomerOrder> g_incomplete = std::deque<CustomerOrder>{};
+
    // Parameterized constructor, just passes the string to the base class constructor
    Workstation::Workstation(const std::string& file) : Station{file} {
-
+      ; // Nothing to do here
    }
 
    // Fills the order at the front of the queue
    void Workstation::fill(std::ostream& os) {
-      if (m_orders.size()) {
+      if (m_orders.size() > 0) {
          m_orders.front().fillItem(*this, os);
       }
    }
@@ -27,7 +32,7 @@ namespace sdds {
       // Move item if out of inventory, or
       // TODO: DOUBLE CHECK THIS ASSUMPTION
       // if there are no more items of the type this station carries to be filled
-      if (!Station::getQuantity() || m_orders.front().isItemFilled(Station::getItemName())) {
+      if (m_orders.size() > 0 && (!Station::getQuantity() || m_orders.front().isItemFilled(Station::getItemName()))) {
          moved = true;
          if (m_pNextStation) {
             *m_pNextStation += std::move(m_orders.front());
@@ -68,5 +73,6 @@ namespace sdds {
 
    Workstation& Workstation::operator+=(CustomerOrder&& newOrder) {
       m_orders.push_back(std::move(newOrder));
+      return *this;
    }
 }

@@ -25,6 +25,10 @@ namespace sdds {
       Workstation* m_pNextStation{};
    public:
       Workstation(const std::string&);
+      Workstation(const Workstation&) = delete;
+      Workstation(Workstation&&) = delete;
+      Workstation& operator=(const Workstation&) = delete;
+      Workstation& operator=(Workstation&&) = delete;
       void fill(std::ostream& os);
       bool attemptToMoveOrder();
       void setNextStation(Workstation* station);

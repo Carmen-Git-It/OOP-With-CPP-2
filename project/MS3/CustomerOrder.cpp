@@ -113,17 +113,19 @@ namespace sdds {
    // Fills an item designated by the given station
    void CustomerOrder::fillItem(Station& station, std::ostream& os) {
       bool filled = false;
-      for (std::size_t i = 0; i < m_cntItem && !filled; i++) {
-         if (station.getQuantity() > 0 && m_lstItem[i]->m_itemName.compare(station.getItemName()) == 0) {
-            m_lstItem[i]->m_isFilled = true;
-            station.updateQuantity();
-            m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
-            filled = true;
-            os << "Filled " << m_name << ", " << m_product << " [" << station.getItemName() << "]" << std::endl;
-         }
-      }
-      if (!filled) {
+      if (station.getQuantity() == 0) {
          os << "Unable to fill " << m_name << ", " << m_product << " [" << station.getItemName() << "]" << std::endl;
+      }
+      else {
+         for (std::size_t i = 0; i < m_cntItem && !filled; i++) {
+            if (m_lstItem[i]->m_itemName.compare(station.getItemName()) == 0 && !m_lstItem[i]->m_isFilled) {
+               m_lstItem[i]->m_isFilled = true;
+               station.updateQuantity();
+               m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
+               filled = true;
+               os << "Filled " << m_name << ", " << m_product << " [" << station.getItemName() << "]" << std::endl;
+            }
+         }
       }
    }
 
